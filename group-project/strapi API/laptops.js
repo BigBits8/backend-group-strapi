@@ -3,12 +3,16 @@ async function renderObjects(){
     let apiUrl = "http://localhost:1337";
     console.log(apiUrl);
 
-    let urlLocalhost = "http://localhost:1337/api/Laptops?populate=";
+    let urlLocalhost = "http://localhost:1337/api/Laptops/1?populate=";
 
     let stringResponse = await fetch (urlLocalhost);
     let myobject = await stringResponse.json();
     let output = '';
     let index = 0;
+    let title  = '';
+    let details  = '';
+    let price  = 0;
+    let qty  = 0;
     //Kolla om data är en array
     if(Array.isArray(myobject.data)){
         myobject.data.forEach(element => {
@@ -35,10 +39,10 @@ async function renderObjects(){
     }else{
         let object = myobject.data.attributes;
        
-         output += `<div class="title"> Title: ${object.Title}</div>`;
-         output += `<div> Description: ${object.Description}</div>`;
-         output += `<div> Price: ${object.Price}</div>`;
-         output += `<div> In stock: ${object.Qty}</div>`;
+         title += `<div class="title"> Title: ${object.Title}</div>`;
+         details += `<div> Description: ${object.Description}</div>`;
+         price += `<div> Price: ${object.Price}</div>`;
+         qty += `<div> In stock: ${object.Qty}</div>`;
     }
      document.getElementById("output").innerHTML = output;
      

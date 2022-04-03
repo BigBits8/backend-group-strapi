@@ -1,31 +1,22 @@
 
- let laptopsUrl = ''
-
-  function getInfo(props){
-   laptopsUrl = '/'+ props
-    console.log(laptopsUrl);
-    renderObjects(laptopsUrl);
-
-}
 
 
-async function renderObjects(props){
-  
+async function renderObjects(){
+    let productUrl = localStorage.getItem('objId');
+    console.log(productUrl);
     let apiUrl = "http://localhost:1337";
     console.log(apiUrl);
-    console.log('test'+ props);
-   
-    let urlLocalhost = apiUrl +`/api/Laptops${props}?populate=`;
-    console.log('Hello' + props)
+
+    let urlLocalhost = `http://localhost:1337/api/Laptops${productUrl}?populate=`;
+
     let stringResponse = await fetch (urlLocalhost);
     let myobject = await stringResponse.json();
     let output = '';
     let index = 0;
-    let title = '';
-    
-    let details = '';
-    let price = '';
-    let qty = '';
+     let title  = '';
+    let details  = '';
+    let price  = 0;
+    let qty  = 0;
     //Kolla om data är en array
     if(Array.isArray(myobject.data)){
         myobject.data.forEach(element => {
@@ -34,9 +25,9 @@ async function renderObjects(props){
             console.log(element);
 
             output += `
-                <div class="grid-item" onclick="getInfo(${element.id})">
+                <div class="grid-item">
                     <div class="laptop-image">
-                        <img src="${laptopsImages[index].image}"></img>
+                        <img src="${images[index].image}"></img>
                     </div>
                     <div class="item-info">
                         <div class="item-title">${attr.Title}</div>
@@ -47,25 +38,20 @@ async function renderObjects(props){
                 </div>
                 
             `;
-             
                index++;
-              
         });
     }else{
-    
         let object = myobject.data.attributes;
-        
+       
          title += `<div class="title"> Title: ${object.Title}</div>`;
          details += `<div> Description: ${object.Description}</div>`;
          price += `<div> Price: ${object.Price}</div>`;
          qty+= `<div> In stock: ${object.Qty}</div>`;
     }
-    document.getElementById('output').innerHTML = output;
      document.getElementById("title").innerHTML = title;
-     document.getElementById("details").innerHTML = details ;
-    
-    
+     document.getElementById("details").innerHTML = details;
+     
 }
 
-renderObjects(laptopsUrl);
+renderObjects();
 
