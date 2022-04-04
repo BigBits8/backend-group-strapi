@@ -4,7 +4,8 @@
   "info": {
     "singularName": "keyboard",
     "pluralName": "keyboards",
-    "displayName": "Keyboard"
+    "displayName": "Keyboard",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -28,6 +29,16 @@
       "relation": "manyToOne",
       "target": "api::product.product",
       "inversedBy": "keyboards"
+    },
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }
