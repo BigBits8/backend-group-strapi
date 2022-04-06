@@ -65,15 +65,15 @@ async function getToken() {
     3. Skicka iväg JSON till API
     */
 
-    let valid = true;
+    // let valid = true;
 
-    //Validera användarnamn och lösenord!
-    if ( !validateLogin() ) valid = false;
+    // //Validera användarnamn och lösenord!
+    // if ( !validateLogin() ) valid = false;
 
-    //Validera PokemonData
-    if ( !validatePokemon() ) valid = false;
+    // //Validera PokemonData
+    // if ( !validatePokemon() ) valid = false;
 
-    if (!valid) return null;
+    // if (!valid) return null;
 
     //Url till Strapi.js UserList
     const urlUser = "http://localhost:1337/api/auth/local/";
@@ -160,106 +160,107 @@ async function postData() {
 
 //Funktioner för validering
 //Validering av User Input
-function userValidate(comp) {
-    // 1. Fältet måste vara ifyllt
+// function userValidate(comp) {
+//     // 1. Fältet måste vara ifyllt
 
-    let valid = true;
+//     let valid = true;
 
-    if (comp.value.length == 0) {
-        //Misslyckad validering
-        valid = false;
-    }
+//     if (comp.value.length == 0) {
+//         //Misslyckad validering
+//         valid = false;
+//     }
 
-    //Check on lyckad validering
-    if (!valid) {
-        document.getElementById("userError").innerText = "Du måste fylla i ett användarnamn!";
-        return false;
-    } else {
-        document.getElementById("userError").innerText = "";
-        return true;
-    }
-}
+//     //Check on lyckad validering
+//     if (!valid) {
+//         document.getElementById("userError").innerText = "Du måste fylla i ett användarnamn!";
+//         return false;
+//     } else {
+//         document.getElementById("userError").innerText = "";
+//         return true;
+//     }
+// }
 
 //Validering av Password input
-function passValidate(comp) {
-    // 1. Fältet måste vara minst 5 tecken eller längre
+// function passValidate(comp) {
+//     // 1. Fältet måste vara minst 5 tecken eller längre
 
-    let valid = true;
+//     let valid = true;
 
-    if (comp.value.length <= 4) {
-        //Misslyckad validering
-        valid = false;
-    }
+//     if (comp.value.length <= 4) {
+//         //Misslyckad validering
+//         valid = false;
+//     }
 
-    //Check on lyckad validering
-    if (!valid) {
-        document.getElementById("passwordError").innerText = "Lösenordet måste vara minst 5 tecken långt!";
-        return false;
-    } else {
-        document.getElementById("passwordError").innerText = "";
-        return true;
-    }
-}
+//     //Check on lyckad validering
+//     if (!valid) {
+//         document.getElementById("passwordError").innerText = "Lösenordet måste vara minst 5 tecken långt!";
+//         return false;
+//     } else {
+//         document.getElementById("passwordError").innerText = "";
+//         return true;
+//     }
+// }
 
 //funktion för validering av inloggninfsförsök
-function validateLogin() {
-    //Variabel
-    let valid = true;
+// function validateLogin() {
+//     //Variabel
+//     let valid = true;
 
-    //Validate Användarnamn
-    if (!userValidate(document.getElementById("user"))) {
-        valid = false;
-    }
+//     //Validate Användarnamn
+//     if (!userValidate(document.getElementById("user"))) {
+//         valid = false;
+//     }
 
-    //Validate Password
-    if (!passValidate(document.getElementById("pass"))) {
-        valid = false;
-    }
+//     //Validate Password
+//     if (!passValidate(document.getElementById("pass"))) {
+//         valid = false;
+//     }
 
-    return valid;
-}
+//     return valid;
+// }
 
 //Funktion för validering av Pokemon Name
-function pokemonNameValidate(comp) {
-    // 1. Fältet måste innehålla ett värde
-    // 2. Fältet får inte vara ett nummer
+// function pokemonNameValidate(comp) {
+//     // 1. Fältet måste innehålla ett värde
+//     // 2. Fältet får inte vara ett nummer
 
-    let valid = true;
+//     let valid = true;
+//     console.log(comp.value.length)
+    
+//     //CHeck om value är större än 0
+//     if (comp.value.length == 0) {
+//         //Felaktig validering
+//         valid = false;
+//         document.getElementById("pokeNameError").innerText = "Pokemon Name måste vara ifyllt.";
+//     }
 
-    //CHeck om value är större än 0
-    if (comp.value.length == 0) {
-        //Felaktig validering
-        valid = false;
-        document.getElementById("pokeNameError").innerText = "Pokemon Name måste vara ifyllt.";
-    }
+//     //CHeck att värdet inte är ett nummer
+//     if ( !isNaN( comp.value ) && comp.value.length != 0) {
+//         //Felaktig validering
+//         valid = false;
+//         document.getElementById("pokeNameError").innerText = "Namnet får inte vara ett nummer.";
+//     }
 
-    //CHeck att värdet inte är ett nummer
-    if ( !isNaN( comp.value ) && comp.value.length != 0) {
-        //Felaktig validering
-        valid = false;
-        document.getElementById("pokeNameError").innerText = "Namnet får inte vara ett nummer.";
-    }
+//     if (valid) {
+//         document.getElementById("pokeNameError").innerText = "";
+//     }
 
-    if (valid) {
-        document.getElementById("pokeNameError").innerText = "";
-    }
-
-    return valid;
-}
+//     return valid;
+// }
 
 //FUnktion för validering av Pokemon
-function validatePokemon() {
-    let valid = true;
+// function validatePokemon() {
+//     let valid = true;
 
-    //Validate PokemonName
-    if ( !pokemonNameValidate(document.getElementById("name")) ) {
-        valid = false;
-    }
+//     //Validate PokemonName
+//     if ( !pokemonNameValidate(document.getElementById("name")) ) {
+//         valid = false;
+//     }
 
-    //TODO - Skapa validering för Type och Level
+//     //TODO - Skapa validering för Type och Level
 
-    return valid;
-}
+//     return valid;
+// }
 
 //Genererat tabellrad med det inkludera objektet. Skapar TH rad om header=true
 function generateRow(obj, objId, header) {

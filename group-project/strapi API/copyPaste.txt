@@ -1,20 +1,12 @@
- let productUrl = '';
+LaptopList
+<script>
+     let laptopsUrl = '';
  let myId = 0;
-//   function getInfo(props){
-//     myId = props;
-//     laptopsUrl = '/'+ props
-//     console.log('laptopsUrl'+ laptopsUrl);
-//     console.log('props'+ props);
-//     renderObjects();
-
-// }
-
-function getInfo(props){
+  function getInfo(props){
     myId = props;
-   productUrl = '/'+ props
-    console.log(productUrl);
-    localStorage.setItem('objId', productUrl);
-    // renderObjects(laptopsUrl);
+   laptopsUrl = '/'+ props
+    console.log(laptopsUrl);
+    localStorage.setItem('objId', laptopsUrl);
     
 
 }
@@ -24,10 +16,10 @@ async function renderObjects(){
     
     let apiUrl = "http://localhost:1337";
     console.log(apiUrl);
-    console.log('test'+productUrl);
+    console.log('test'+laptopsUrl);
    
-    let urlLocalhost = apiUrl +`/api/Laptops${productUrl}?populate=image`;
-    console.log('Product URL:' + productUrl)
+    let urlLocalhost = apiUrl +`/api/Laptops${laptopsUrl}?populate=image`;
+    console.log('Hello' + laptopsUrl)
     let stringResponse = await fetch (urlLocalhost);
     let myobject = await stringResponse.json();
     let output = '';
@@ -38,21 +30,12 @@ async function renderObjects(){
         myobject.data.forEach(element => {
             
             let attr = element.attributes;
-            // let img;
             console.log(element);
-            
 
-            if (attr.image.data === null){
-                img = 'https://res.cloudinary.com/dfqx0ptfj/image/upload/v1649245136/white_omnxo9.jpg';
-                
-            }else{
-                img = attr.image.data.attributes.formats.thumbnail.url;
-            }
-            
             output += `
-                <a href="index2.html"><div class="grid-item" onclick="getInfo(${element.id})">
+                <a href="laptop-0"><div class="grid-item" onclick="getInfo(${element.id})">
                     <div class="laptop-image">
-                        <img src="${img}" alt="picture missing"></img>
+                        <img src="${attr.image.data.attributes.formats.medium.url}"></img>
                     </div>
                     <div class="item-info">
                         <div class="item-title">${attr.title}</div>
@@ -60,7 +43,7 @@ async function renderObjects(){
                         <div>Qty: ${attr.qty}</div>
                     </div>
                     
-                </div></a>
+                </div>
                 
             `;
              
@@ -87,5 +70,11 @@ async function renderObjects(){
      
 }
 
-renderObjects();
+renderObjects(laptopsUrl);
 
+
+</script>
+
+<div id="output">
+        
+</div>

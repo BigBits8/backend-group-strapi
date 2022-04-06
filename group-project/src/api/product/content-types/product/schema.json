@@ -17,12 +17,6 @@
       "required": true,
       "unique": true
     },
-    "categories": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::category.category",
-      "inversedBy": "products"
-    },
     "laptops": {
       "type": "relation",
       "relation": "oneToMany",

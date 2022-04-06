@@ -12,16 +12,16 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "Title": {
+    "title": {
       "type": "string"
     },
-    "Description": {
+    "description": {
       "type": "text"
     },
-    "Price": {
+    "price": {
       "type": "biginteger"
     },
-    "Qty": {
+    "qty": {
       "type": "biginteger"
     },
     "product": {
@@ -31,14 +31,15 @@
       "inversedBy": "keyboards"
     },
     "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     }
   }
 }
