@@ -1,40 +1,39 @@
+//  Skapar variabel för ändring av poduct id i urlLocalhost
  let productUrl = '';
- let myId = 0;
 
-
+// funktion som används onclick vid skapandet av div för varje objekt
+//  Funktionen tar emot element.id och productUrl tar det som värde som senare hamnar i urlLocalhost
 function getInfo(props){
-    myId = props;
-   productUrl = '/'+ props
+    productUrl = '/'+ props
     console.log(productUrl);
     localStorage.setItem('objId', productUrl);
-    // renderObjects(laptopsUrl);
-    
-
 }
 
 async function renderObjects(){
-    
-    
+
     let apiUrl = "http://localhost:1337";
+
     console.log(apiUrl);
     console.log('test'+productUrl);
-   
+    // URL för visning av produkter
     let urlLocalhost = apiUrl +`/api/Laptops${productUrl}?populate=image`;
     console.log('Product URL:' + productUrl)
+
+     // Fetchar url och gör om till json
     let stringResponse = await fetch (urlLocalhost);
     let myobject = await stringResponse.json();
     let output = '';
-    let index = 0;
     
     //Kolla om data är en array
     if(Array.isArray(myobject.data)){
         myobject.data.forEach(element => {
             
             let attr = element.attributes;
-            // let img;
-            console.log(element);
             
+            console.log(element);
 
+            // Om bild är null(existerar inte i strapi att hämta), visa en vit bild
+            // Bilden hämtas från en cloud databas kallad cloudinary
             if (attr.image.data === null){
                 img = 'https://res.cloudinary.com/dfqx0ptfj/image/upload/v1649245136/white_omnxo9.jpg';
                 
@@ -52,14 +51,11 @@ async function renderObjects(){
                         <div>Price: ${attr.price}</div>
                         <div>Qty: ${attr.qty}</div>
                     </div>
-                    
                 </div></a>
-                
             `;
              
-               index++;
-              
         });
+        // Om det bara är ett objekt
     }else{
         
         let object = myobject.data.attributes;

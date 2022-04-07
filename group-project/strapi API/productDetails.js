@@ -1,5 +1,6 @@
 
-
+// Hämtar variabel sparad i localstorage från ProductList för att hämta korrekt id nummer
+// i urlLocalhost
 laptopsUrl = localStorage.getItem('objId');
 
 async function renderObjects(){
@@ -7,11 +8,11 @@ async function renderObjects(){
     console.log(apiUrl);
 
     let urlLocalhost = `http://localhost:1337/api/Laptops${laptopsUrl}?populate=image`;
-
+    // Fetchar url och gör om till json
     let stringResponse = await fetch (urlLocalhost);
     let myobject = await stringResponse.json();
     let output = '';
-    let index = 0;
+    
      
     
     //Kolla om data är en array
@@ -21,9 +22,11 @@ async function renderObjects(){
             let attr = element.attributes;
             console.log(element);
 
+            // Om bild är null(existerar inte i strapi att hämta), visa en vit bild
+            // Bilden hämtas från en cloud databas kallad cloudinary
             if (attr.image.data === null){
                 img = 'https://res.cloudinary.com/dfqx0ptfj/image/upload/v1649245136/white_omnxo9.jpg';
-                
+              // Om bild finns hämta bild som url
             }else{
                 img = attr.image.data.attributes.formats.thumbnail.url;
             }
@@ -42,7 +45,7 @@ async function renderObjects(){
                 </div></a>
                 
             `;
-               index++;
+               
         });
     }else{
         // Om det bara är ett objekt
