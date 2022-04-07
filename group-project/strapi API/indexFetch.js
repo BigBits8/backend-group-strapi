@@ -1,7 +1,15 @@
 //Funktion för att hämta data från Strapi CMS
 async function getDataFromStrapi() {
   //Url till Strapi.js API för att hämta alla Pokemons
-  let url = "http://localhost:1337/api/Products?populate=*";
+
+//   Skapar en array med produkter-typ som ska fetchas genom en for-loop
+  let arr = [
+    'Laptops',
+    'Monitors',
+    'Keyboards'];
+    //  En for lopp för att gå igenom varje produkt typ.
+  for (let i = 0; i < arr.length; i++) {
+       let url = `http://localhost:1337/api/${arr[i]}?populate=*`;
 
   //Hämtar JSON från API och konverterar det till JS objekt
   let stringResponse = await fetch(url);
@@ -10,7 +18,6 @@ async function getDataFromStrapi() {
   console.log(myObject);
 
   let output = "";
-  let output2 = "";
 
   //Checkar om det är ett eller flera objekt som hämtas
   //Kan undvikas genom flera funktioner; en för alla och en för unik
@@ -19,38 +26,27 @@ async function getDataFromStrapi() {
     myObject.data.forEach((element) => {
       //Gör en pekare till attribut objektet
       let obj = element.attributes;
-
-     
-    //   for (x in obj) {
-    //     console.log(x + ": " + obj[x]);
-    //   }
      
 
-      //Skriver Output string
-      //document.write(`Namn: ${attr.name}`);
-      output += `<div>Title: ${obj.title}</div>`;
-         element.attributes.laptops.data.forEach(element =>{
-          let miniObj = element.attributes;
-
-          output2 += `<div>Title: ${miniObj.title}`;
-      })
-      
+      //Skriver Output string med typ av produkt
+    
+      output += `<div>${arr[i]}: ${obj.title}</div>`;
+    
     });
   } else {
     //Gör en pekare till attribut objektet
     let obj = myObject.data.attributes;
-    for (x in obj) {
-      console.log(x + ": " + obj[x]);
-    }
-
+   
     //Skriver Output string
     output += `<div>Title: ${obj.title}</div>`;
   }
 
   //Skriver ut Output string till div-element
   //document.write(output);
-  document.getElementById("laptopFetched").innerHTML = output;
-  document.getElementById("laptopFetched2").innerHTML = output2;
+  document.getElementById("laptopFetched").innerHTML += output;
+  
+  }
+ 
 }
 
 //Funktion för att hämta Token för användare
