@@ -1,88 +1,78 @@
 
-     let productUrl = '';
- let myId = 0;
-//   function getInfo(props){
-//     myId = props;
-//     laptopsUrl = '/'+ props
-//     console.log('laptopsUrl'+ laptopsUrl);
-//     console.log('props'+ props);
-//     renderObjects();
 
-// }
-
-function getInfo(props){
-    myId = props;
-   productUrl = '/'+ props
-    console.log(productUrl);
-    localStorage.setItem('objId', productUrl);
-    // renderObjects(laptopsUrl);
-    
-
-}
+laptopsUrl = localStorage.getItem('objId');
 
 async function renderObjects(){
-    
-    
     let apiUrl = "http://localhost:1337";
     console.log(apiUrl);
-    console.log('test'+productUrl);
-   
-    let urlLocalhost = apiUrl +`/api/Laptops${productUrl}?populate=image`;
-    console.log('Hello' + productUrl)
+
+    let urlLocalhost = `http://localhost:1337/api/Laptops${laptopsUrl}?populate=image`;
+
     let stringResponse = await fetch (urlLocalhost);
     let myobject = await stringResponse.json();
     let output = '';
     let index = 0;
+     
     
     //Kolla om data är en array
     if(Array.isArray(myobject.data)){
         myobject.data.forEach(element => {
             
             let attr = element.attributes;
+            console.log(element);
+
             if (attr.image.data === null){
-                 img = 'https://res.cloudinary.com/dfqx0ptfj/image/upload/v1649245136/white_omnxo9.jpg';
+                img = 'https://res.cloudinary.com/dfqx0ptfj/image/upload/v1649245136/white_omnxo9.jpg';
                 
             }else{
-                img = attr.image.data.attributes.formats.medium.url;
+                img = attr.image.data.attributes.formats.thumbnail.url;
             }
-            console.log(element);
-            
-            output += `
-            
-            <div class="col-4" onclick="getInfo(${element.id})">
-            <div class="card h-100 shadow-sm"> <img src="${img}" class="card-image-top"/>
-              <div class="card-body">
-                <div class="clearfix mb-3"> <span class="float-start badge rounded-pill bg-primary">Qty:${attr.qty}</span> <span class="float-end price-hp">${attr.price}kr</span> </div>
-                    <h5 class="card-title">${attr.title}</h5>                  
-                    </div>                               
-                </div>
-            </div>
-            `;
-             
-               index++;
-              
-        });
-    }else{
-        
-        let object = myobject.data.attributes;
-        
-         output += `<div class="grid-item">
+
+             output += `
+                <a href="productDetails.html"><div class="grid-item" onclick="getInfo(${element.id})">
                     <div class="laptop-image">
-                        <img src="${laptopsImages[myId-1].image}"></img>
+                        <img src="${img}" alt="picture missing"></img>
                     </div>
                     <div class="item-info">
-                        <div class="item-title">${object.title}</div>
-                        <div>Price: ${object.price}</div>
-                        <div>Qty: ${object.qty}</div>
+                        <div class="item-title">${attr.title}</div>
+                        <div>Price: ${attr.price}</div>
+                        <div>Qty: ${attr.qty}</div>
                     </div>
                     
-                </div>`;
+                </div></a>
+                
+            `;
+               index++;
+        });
+    }else{
+        // Om det bara är ett objekt
+        let object = myobject.data.attributes;
+
+         output = `
+        <div class="container">
+        <div class="card mb-6" style="max-width: 1980px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="${object.image.data.attributes.formats.medium.url}" class="img-fluid rounded-start">
+          </div>
+          <div class="col-md-6">
+            <div class="card-body">
+              <h5 class="card-title">${object.title}</h5>
+              <p class="card-text">${object.description}</p>              
+              <p class="card-text"><span class="float-start badge rounded-pill bg-secondary">Qty:${object.qty}</span> <span class="float-end price-hp">Price: ${object.price}kr</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+  
+        `
     }
-    document.getElementById('output').innerHTML = output;
-     
+     document.getElementById("output").innerHTML = output;
 }
 
 renderObjects();
+
 
 
 

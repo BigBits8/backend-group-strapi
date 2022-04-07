@@ -1,13 +1,6 @@
  let productUrl = '';
  let myId = 0;
-//   function getInfo(props){
-//     myId = props;
-//     laptopsUrl = '/'+ props
-//     console.log('laptopsUrl'+ laptopsUrl);
-//     console.log('props'+ props);
-//     renderObjects();
 
-// }
 
 function getInfo(props){
     myId = props;
@@ -50,7 +43,7 @@ async function renderObjects(){
             }
             
             output += `
-                <a href="index2.html"><div class="grid-item" onclick="getInfo(${element.id})">
+                <a href="productDetails.html"><div class="grid-item" onclick="getInfo(${element.id})">
                     <div class="laptop-image">
                         <img src="${img}" alt="picture missing"></img>
                     </div>
@@ -71,17 +64,26 @@ async function renderObjects(){
         
         let object = myobject.data.attributes;
         
-         output += `<div class="grid-item">
-                    <div class="laptop-image">
-                        <img src="${laptopsImages[myId-1].image}"></img>
-                    </div>
-                    <div class="item-info">
-                        <div class="item-title">${object.title}</div>
-                        <div>Price: ${object.price}</div>
-                        <div>Qty: ${object.qty}</div>
-                    </div>
-                    
-                </div>`;
+         output = `
+        <div class="container">
+        <div class="card mb-6" style="max-width: 1980px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="${object.image.data.attributes.formats.medium.url}" class="img-fluid rounded-start">
+          </div>
+          <div class="col-md-6">
+            <div class="card-body">
+              <h5 class="card-title">${object.title}</h5>
+              <p class="card-text">${object.description}</p>              
+              <p class="card-text"><span class="float-start badge rounded-pill bg-secondary">Qty:${object.qty}</span> <span class="float-end price-hp">Price: ${object.price}kr</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+  
+        `
+    
     }
     document.getElementById('output').innerHTML = output;
      
