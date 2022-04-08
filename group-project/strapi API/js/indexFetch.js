@@ -106,8 +106,13 @@ async function getToken() {
 }
 
 async function postData(token) {
+  
+  // Hämtar vald produkt typ och används i urllaptop
+  const productType = document.getElementById("productType").value;
+  console.log(productType);
+
   //URL till Strapi Pokemon collection.
-  const urllaptop = "http://localhost:1337/api/laptops/";
+  const urllaptop = `http://localhost:1337/api/${productType}`;
 
   // Hämtar data från fält
   const title = document.getElementById("title").value;

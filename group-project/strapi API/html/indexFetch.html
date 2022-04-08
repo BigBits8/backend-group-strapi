@@ -3,20 +3,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Document</title>
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../style.css">
 
 <body>
 <button onclick="getDataFromStrapi();">Fetch products</button>
 <div>
     
 </div>
-<div id="laptopFetched2"></div>
 
 <div>
 <div id="laptopFetched"></div>
 
 <div>
-
     <label for="user">Användarnamn:</label>
     <input type="text" name="user" id="user" onchange="userValidate(this);">
     <div id="userError" class="errorInfo"></div>
@@ -42,6 +40,13 @@
         <label for="qty">Quantity:</label>
         <input type="number" name="qty" id="qty">
     </div>
+    <!-- Skapar en dropdown lista för att välja produkt typ -->
+    <label for="productType">Add to:</label>
+    <select name="productType" id="productType">
+        <option value="laptops">Laptops</option>
+        <option value="monitors">Monitors</option>
+        <option value="keyboards">Keyboards</option>
+    </select>
 </div>
 <div>
     <button onclick="getToken();">Skapa en ny produkt</button>
