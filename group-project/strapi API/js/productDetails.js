@@ -1,23 +1,22 @@
 
 // Hämtar variabel sparad i localstorage från ProductList för att hämta korrekt id nummer
 // i urlLocalhost
-laptopsUrl = localStorage.getItem('objId');
+productUrl = localStorage.getItem('objId');
 
 async function renderObjects(){
     let apiUrl = "http://localhost:1337";
     console.log(apiUrl);
 
-    let urlLocalhost = `http://localhost:1337/api/Laptops${laptopsUrl}?populate=image`;
+    let urlLocalhost = `http://localhost:1337/api/Laptops${productUrl}?populate=image`;
     // Fetchar url och gör om till json
-    let stringResponse = await fetch (urlLocalhost);
-    let myobject = await stringResponse.json();
+    let urlResponse = await fetch (urlLocalhost);
+    let object = await urlResponse.json();
     let output = '';
     
      
-    
     //Kolla om data är en array
-    if(Array.isArray(myobject.data)){
-        myobject.data.forEach(element => {
+    if(Array.isArray(object.data)){
+        object.data.forEach(element => {
             
             let attr = element.attributes;
             console.log(element);
@@ -49,7 +48,7 @@ async function renderObjects(){
         });
     }else{
         // Om det bara är ett objekt
-        let object = myobject.data.attributes;
+        let object = object.data.attributes;
 
          output = `
         <div class="container">

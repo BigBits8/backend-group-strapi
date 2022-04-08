@@ -106,13 +106,13 @@ async function getToken() {
 }
 
 async function postData(token) {
-  
-  // Hämtar vald produkt typ och används i urllaptop
+
+  // Hämtar vald produkt typ och används i urlProduct
   const productType = document.getElementById("productType").value;
   console.log(productType);
 
-  //URL till Strapi Pokemon collection.
-  const urllaptop = `http://localhost:1337/api/${productType}`;
+  //URL till Strapi produkter.
+  const urlProduct = `http://localhost:1337/api/${productType}`;
 
   // Hämtar data från fält
   const title = document.getElementById("title").value;
@@ -131,7 +131,7 @@ async function postData(token) {
   };
 
   //Anropar API med pokemonObjekt
-  let laptopResponse = await fetch(urllaptop, {
+  let laptopResponse = await fetch(urlProduct, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
