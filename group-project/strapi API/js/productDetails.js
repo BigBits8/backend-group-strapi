@@ -14,7 +14,7 @@ async function renderObjects(){
     let output = '';
     
      
-    //Kolla om data är en array
+    //För produkt sidan / Flera objekt
     if(Array.isArray(productObject.data)){
         productObject.data.forEach(element => {
             
@@ -25,29 +25,26 @@ async function renderObjects(){
             // Bilden hämtas från en cloud databas kallad cloudinary
             if (attr.image.data === null){
                 img = 'https://res.cloudinary.com/dfqx0ptfj/image/upload/v1649245136/white_omnxo9.jpg';
-              // Om bild finns hämta bild som url
+              // Om bild finns  på Strapi hämta bild som url
             }else{
                 img = attr.image.data.attributes.formats.thumbnail.url;
             }
 
              output += `
-                <a href="productDetails.html"><div class="grid-item" onclick="getInfo(${element.id})">
-                    <div class="laptop-image">
-                        <img src="${img}" alt="picture missing"></img>
-                    </div>
-                    <div class="item-info">
-                        <div class="item-title">${attr.title}</div>
-                        <div>Price: ${attr.price}</div>
-                        <div>Qty: ${attr.qty}</div>
-                    </div>
-                    
+                <div class="col-4 click" onclick="getInfo(${element.id})">
+            <a href="laptop-0"><div class="card h-100 shadow-sm"> <img src="${img}" class="card-image-top"/>
+              <div class="card-body">
+                <div class="clearfix mb-3"> <span class="float-start badge rounded-pill bg-primary">Qty:${attr.qty}</span> <span class="float-end price-hp">${attr.price}kr</span> </div>
+                    <h5 class="card-title">${attr.title}</h5>                  
+                    </div>                               
                 </div></a>
+            </div>
                 
             `;
                
         });
     }else{
-        // Om det bara är ett objekt
+        // För detaljerad sida / Singel objekt
         let object = productObject.data.attributes;
 
          output = `
