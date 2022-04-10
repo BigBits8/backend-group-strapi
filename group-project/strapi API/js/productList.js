@@ -22,12 +22,12 @@ async function renderObjects(){
 
      // Fetchar url och gör om till json
     let urlResponse = await fetch (urlLocalhost);
-    let object = await urlResponse.json();
+    let productObject = await urlResponse.json();
     let output = '';
     
     //Kolla om data är en array
-    if(Array.isArray(object.data)){
-        object.data.forEach(element => {
+    if(Array.isArray(productObject.data)){
+        productObject.data.forEach(element => {
             
             let attr = element.attributes;
             
@@ -43,7 +43,7 @@ async function renderObjects(){
             }
             
             output += `
-                <a href="productDetails.html"><div class="grid-item" onclick="getInfo(${element.id})">
+               <a href="productDetails.html"><div class="grid-item" onclick="getInfo(${element.id})">
                     <div class="laptop-image">
                         <img src="${img}" alt="picture missing"></img>
                     </div>
@@ -59,7 +59,7 @@ async function renderObjects(){
         // Om det bara är ett objekt
     }else{
         
-        let object = object.data.attributes;
+        let object = productObject.data.attributes;
         
          output = `
         <div class="container">

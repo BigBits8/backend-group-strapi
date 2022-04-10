@@ -1,25 +1,21 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Document</title>
+<title>Formulär</title>
 
 <link rel="stylesheet" href="../style.css">
 
 <body>
 <button onclick="getDataFromStrapi();">Fetch products</button>
-<div>
-    
-</div>
 
-<div>
 <div id="laptopFetched"></div>
 
 <div>
-    <label for="user">Användarnamn:</label>
+    <label for="user">Username:</label>
     <input type="text" name="user" id="user" onchange="userValidate(this);">
     <div id="userError" class="errorInfo"></div>
 
-    <label for="pass">Lösenord:</label>
+    <label for="pass">Password:</label>
     <input type="password" name="pass" id="pass" onchange="passValidate(this);">
     <div id="passwordError" class="errorInfo"></div>
 </div>

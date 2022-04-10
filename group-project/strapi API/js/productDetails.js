@@ -10,13 +10,13 @@ async function renderObjects(){
     let urlLocalhost = `http://localhost:1337/api/Laptops${productUrl}?populate=image`;
     // Fetchar url och gör om till json
     let urlResponse = await fetch (urlLocalhost);
-    let object = await urlResponse.json();
+    let productObject = await urlResponse.json();
     let output = '';
     
      
     //Kolla om data är en array
-    if(Array.isArray(object.data)){
-        object.data.forEach(element => {
+    if(Array.isArray(productObject.data)){
+        productObject.data.forEach(element => {
             
             let attr = element.attributes;
             console.log(element);
@@ -48,7 +48,7 @@ async function renderObjects(){
         });
     }else{
         // Om det bara är ett objekt
-        let object = object.data.attributes;
+        let object = productObject.data.attributes;
 
          output = `
         <div class="container">
@@ -70,7 +70,7 @@ async function renderObjects(){
   
         `
     }
-     document.getElementById("output").innerHTML = output;
+     document.getElementById("desc").innerHTML = output;
 }
 
 renderObjects();
