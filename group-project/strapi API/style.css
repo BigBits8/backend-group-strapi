@@ -1,45 +1,3 @@
-/* #output{
-  
-  display: grid;
-  grid-template-columns: auto auto auto;
-  
-  justify-content: space-between;
-  padding:20px;
-}
-.grid-item {
-  
-  background-color: grey;
-  width: 20vw;
-  height: 450px;
-  margin-top: 50px;
-}
-.item-info{
-  font-size: 15px;
-  margin-top:20px;
-  padding-left: 10px;
-}
-.item-info div{
-  margin-top: 5px;
-}
-.item-title{
-  width:80%;
-}
-.laptop-image{
-  
-  display:flex;
-  justify-content: center;
-}
-.grid-item img{
- 
-  width: 100%;
-}
-*/
-.errorInfo{
-  font-size: 12px;
-  color: red;
-} 
-
-
 /* Enter Your Custom CSS Here */
 @import url("https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&display=swap");
@@ -321,4 +279,9 @@ main {
 
 #group .container {
   display: flex;
+}
+
+.errorInfo {
+  font-size: 12px;
+  color: red;
 }
