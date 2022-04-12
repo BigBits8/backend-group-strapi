@@ -7,9 +7,12 @@ function getInfo(props){
     productUrl = '/'+ props
     console.log(productUrl);
     localStorage.setItem('objId', productUrl);
+    localStorage.setItem('objType', productTypeApi);
 }
 
 async function renderObjects(){
+    // Switcha vad som ska skrivas ut. Kopiera och klistra in i variabeln productTypeApi / Monitors / Laptops/ Keyboards
+    let = productTypeApi = 'Laptops';
 
     let apiUrl = "http://localhost:1337";
 
@@ -17,7 +20,7 @@ async function renderObjects(){
     console.log('test'+productUrl);
 
     // URL för visning av produkter
-    let urlLocalhost = apiUrl +`/api/Laptops${productUrl}?populate=image`;
+    let urlLocalhost = apiUrl +`/api/${productTypeApi}${productUrl}?populate=image`;
     console.log('Product URL:' + productUrl)
 
      // Fetchar url och gör om till json

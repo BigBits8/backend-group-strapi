@@ -1,17 +1,17 @@
-//Funktion för att hämta data från Strapi CMS
+//Function to fetch data from Strapi
 async function getDataFromStrapi() {
-  //Url till Strapi.js API för att hämta alla Pokemons
-
-//   Skapar en array med produkter-typ som ska fetchas genom en for-loop
+  
+  //Skapar en array med produkter-typ som ska fetchas genom en for-loop
   let arr = [
     'Laptops',
     'Monitors',
     'Keyboards'];
-    //  En for lopp för att gå igenom varje produkt typ.
+    //En for lopp för att gå igenom varje produkt typ.
   for (let i = 0; i < arr.length; i++) {
+    //Url till Strapi API för hämtning av produkter
        let url = `http://localhost:1337/api/${arr[i]}?populate=*`;
 
-  //Hämtar JSON från API och konverterar det till JS objekt
+  //Fetches JSON from SPI and convert to JS object
   let stringResponse = await fetch(url);
   let myObject = await stringResponse.json();
 
@@ -19,15 +19,15 @@ async function getDataFromStrapi() {
 
   let output = "";
 
-  //Checkar om det är ett eller flera objekt som hämtas
-  //Kan undvikas genom flera funktioner; en för alla och en för unik
+  //Checks if one or more objects are fetched
   if (Array.isArray(myObject.data)) {
-    //Skapar en ForEach loop för varje elemet i Data-arrayen
+
+    //Loops through every element in array
     myObject.data.forEach((element) => {
-      //Gör en pekare till attribut objektet
+
+      //A pointer to attributes
       let obj = element.attributes;
      
-
       //Skriver Output string med typ av produkt
     
       output += `<div>${arr[i]}: ${obj.title}</div>`;
@@ -37,11 +37,11 @@ async function getDataFromStrapi() {
     //Gör en pekare till attribut objektet
     let obj = myObject.data.attributes;
    
-    //Skriver Output string
+     //Output to string
     output += `<div>Title: ${obj.title}</div>`;
   }
 
-  //Skriver ut Output string till div-element
+  //Output string to div
   //document.write(output);
   document.getElementById("laptopFetched").innerHTML += output;
   
@@ -49,36 +49,29 @@ async function getDataFromStrapi() {
  
 }
 
-//Funktion för att hämta Token för användare
-//Om en Token hämtas så betyder det att user/password är korrekt skrivet
+//Fetches token if user and pass is correct
 async function getToken() {
-  /*
-    1. Göra ett inloggningsförsök för att få en Token returnerad
-    2. Sammla data och skapa ett objekt av dessa
-    3. Skicka iväg JSON till API
-    */
 
     let valid = true;
 
-    //Validera användarnamn och lösenord!
+    //Validate user and pass
     if (!validateLogin()) valid = false;
 
     if (!valid) return null;
 
-  //Url till Strapi.js UserList
+  //Url to Strapi.js UserList
   const urlUser = "http://localhost:1337/api/auth/local/";
 
   const user = document.getElementById("user").value;
   const pass = document.getElementById("pass").value;
 
-  //Skapar ett objekt av det användarnamn och lösenord som user har skrivit in i fält.
+  //object created from user and pass
   let userObject = {
     identifier: user,
     password: pass,
   };
 
-  //Anropar API med inloggningsdata.
-  //Inkluderar Method och Headers
+  //Calls API with login data
   let userResponse = await fetch(urlUser, {
     method: "POST",
     headers: {
@@ -87,16 +80,14 @@ async function getToken() {
     body: JSON.stringify(userObject),
   });
 
-  //Konverterar API response JSON string till ett objekt
+  //Converts API response JSON string to object
   let userJson = await userResponse.json();
   console.log(userJson);
 
-  //Kontrollerar om objektet har Token.
-  //Token ligger under attribut jwt
-  //Om så; inloggning är korrekt. Fortsätt till funktion postData med token som parameter.
+ //Checks if object has Token.
   if (userJson.jwt) postData(userJson.jwt);
   else {
-    //Inloggningen har misslyckats. Skriv ut errormeddelande från Strapi.js
+    //Failed login = error message
     let errMessage = userJson.error.message;
 
     document.getElementById("userError").innerText = errMessage;
@@ -111,16 +102,16 @@ async function postData(token) {
   const productType = document.getElementById("productType").value;
   console.log(productType);
 
-  //URL till Strapi produkter.
+  //URL to Strapi database
   const urlProduct = `http://localhost:1337/api/${productType}`;
 
-  // Hämtar data från fält
+  //Fetches data from input
   const title = document.getElementById("title").value;
   const description = document.getElementById("description").value;
   const price = document.getElementById("price").value;
   const qty = document.getElementById("qty").value;
 
-  //Skapa ett objekt med data inkluderat.
+  //Creates object from data
   let laptopObject = {
     data: {
       title: title,
@@ -130,7 +121,7 @@ async function postData(token) {
     },
   };
 
-  //Anropar API med pokemonObjekt
+  //Calls API with object
   let laptopResponse = await fetch(urlProduct, {
     method: "POST",
     headers: {
@@ -145,19 +136,18 @@ async function postData(token) {
   console.log(laptopJson);
 }
 
-//Funktioner för validering
-//Validering av User Input
+//Validation
 function userValidate(comp) {
-    // 1. Fältet måste vara ifyllt
+     //Must have input
 
     let valid = true;
 
     if (comp.value.length == 0) {
-        //Misslyckad validering
+         //Failed validation
         valid = false;
     }
 
-    //Check on lyckad validering
+    //Error message
     if (!valid) {
         document.getElementById("userError").innerText = "Du måste fylla i ett användarnamn!";
         return false;
@@ -167,18 +157,18 @@ function userValidate(comp) {
     }
 }
 
-//Validering av Password input
+//Validation password
 function passValidate(comp) {
-    // 1. Fältet måste vara minst 5 tecken eller längre
+   //Must be longer than 5
 
     let valid = true;
 
     if (comp.value.length <= 4) {
-        //Misslyckad validering
+        //Failed validation
         valid = false;
     }
 
-    //Check on lyckad validering
+     //Error message
     if (!valid) {
         document.getElementById("passwordError").innerText = "Lösenordet måste vara minst 5 tecken långt!";
         return false;
@@ -188,20 +178,31 @@ function passValidate(comp) {
     }
 }
 
-//funktion för validering av inloggninfsförsök
+//Validate login
 function validateLogin() {
     //Variabel
     let valid = true;
 
-    //Validate Användarnamn
+    //Validate user
     if (!userValidate(document.getElementById("user"))) {
         valid = false;
     }
 
-    //Validate Password
+    //Validate password
     if (!passValidate(document.getElementById("pass"))) {
         valid = false;
     }
 
     return valid;
 }
+
+
+
+
+
+
+
+
+
+
+
